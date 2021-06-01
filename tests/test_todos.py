@@ -1,13 +1,37 @@
 # Third-party imports...
-from nose.tools import assert_is_not_none
+
+from unittest.mock import Mock, patch
+
+from nose.tools import assert_is_not_none,assert_list_equal
 
 # Local imports...
 from projectMock.services import get_todos
 
+import logging
 
-def test_request_response():
+logging.basicConfig(level=logging.DEBUG)
+log = logging.getLogger('TestMOCK Simple')
+log.debug('Before Path')
+
+
+@patch('projectMock.services.requests.get')
+def test_request_response(mock_get):
+    
+    log = logging.getLogger('Response')
+
     # Call the service, which will send a request to the server.
-    response = get_todos()
+    todos = [{
+        'userId': 1,
+        'id': 1,
+        'title': 'Make the bed',
+        'completed': False
+    }]
+   
+    mock_get.return_value = Mock(ok=True)
+    mock_get.return_value.json.return_value = todos
 
-    # If the request is sent successfully, then I expect a response to be returned.
-    assert_is_not_none(response)
+    response = get_todos()  
+
+    log.debug(response.json())
+
+    assert_list_equal(response.json(), todos)

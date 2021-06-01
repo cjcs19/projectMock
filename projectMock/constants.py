@@ -1,1 +1,1 @@
-BASE_URL = 'http://jsonplaceholder.typicode.com'
+BASE_URL = 'http://jsonplaceholder1.typicode.com'

@@ -19,6 +19,7 @@ nosexcover = "*"
 pylint = "*"
 freezegun = "*"
 aws_lambda_context = "*"
+login="*"
 
 [requires]
 python_version = "3.7"
