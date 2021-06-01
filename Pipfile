@@ -1,0 +1,28 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+requests = "*"
+nose = "*"
+
+[dev-packages]
+pycodestyle = "*"
+requests = "*"
+sure = "*"
+pytest = "*"
+pytest-cov = "*"
+nose = "*"
+coverage = "*"
+nosexcover = "*"
+pylint = "*"
+freezegun = "*"
+aws_lambda_context = "*"
+
+[requires]
+python_version = "3.7"
+
+[scripts]
+lint = "pycodestyle asd tests"
+test = "python -m unittest discover"
