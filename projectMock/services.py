@@ -6,6 +6,7 @@ except ImportError:
 
 # Third-party imports...
 import requests
+import json
 
 # Local imports...
 from projectMock.constants import BASE_URL
@@ -19,3 +20,11 @@ def get_todos():
         return response
     else:
         return None
+
+def get_titles():
+    response = requests.get(TODOS_URL)
+    if response.ok:
+        return response.json()[0]['title']
+    else:
+        return None
+

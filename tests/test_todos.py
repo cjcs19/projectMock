@@ -2,10 +2,10 @@
 
 from unittest.mock import Mock, patch
 
-from nose.tools import assert_is_not_none,assert_list_equal,assert_is_none
+from nose.tools import assert_is_not_none,assert_list_equal,assert_is_none, assert_equal
 
 # Local imports...
-from projectMock.services import get_todos
+from projectMock.services import get_titles, get_todos
 
 import logging
 
@@ -42,4 +42,27 @@ def test_request_response(mock_get):
     response = get_todos()
     assert_is_none(response)
     log.debug(response)
+
+
+@patch('projectMock.services.requests.get')
+def test_request_titles(mock_get):
+    log = logging.getLogger('Response Title')
+
+    # Call the service, which will send a request to the server.
+    todos = [{
+        'userId': 1,
+        'id': 1,
+        'title': 'Make the bed',
+        'completed': False
+    }]
+
+    mock_get.return_value = Mock(ok=True)
+    mock_get.return_value.json.return_value = todos
+
+    response = get_titles()
+    log.debug(response)
+    assert_equal(response,todos[0]['title'])
+
+
+
 
