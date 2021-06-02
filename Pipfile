@@ -6,6 +6,7 @@ name = "pypi"
 [packages]
 requests = "*"
 nose = "*"
+urllib3="*"
 
 [dev-packages]
 pycodestyle = "*"
@@ -20,6 +21,7 @@ pylint = "*"
 freezegun = "*"
 aws_lambda_context = "*"
 login="*"
+urllib3_mock="*"
 
 [requires]
 python_version = "3.7"

@@ -5,9 +5,10 @@ from unittest.mock import Mock, patch
 from nose.tools import assert_is_not_none,assert_list_equal,assert_is_none, assert_equal
 
 # Local imports...
-from projectMock.services import get_titles, get_todos
+from projectMock.services import get_titles, get_todos,send_msg,geturlib
 
 import logging
+from urllib3_mock import Responses
 
 logging.basicConfig(level=logging.DEBUG)
 log = logging.getLogger('TestMOCK Simple')
@@ -64,5 +65,14 @@ def test_request_titles(mock_get):
     assert_equal(response,todos[0]['title'])
 
 
+@patch('projectMock.services.urllib3.PoolManager.request')
+def test_msgHttp(mock_http):
+    log = logging.getLogger('msgHttp')
+
+    mock_http.return_value = Mock(status=200)
+    geturlib()
+
+    mock_http.return_value = Mock(status=201)
+    geturlib()
 
 
