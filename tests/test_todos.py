@@ -2,7 +2,7 @@
 
 from unittest.mock import Mock, patch
 
-from nose.tools import assert_is_not_none,assert_list_equal
+from nose.tools import assert_is_not_none,assert_list_equal,assert_is_none
 
 # Local imports...
 from projectMock.services import get_todos
@@ -27,6 +27,8 @@ def test_request_response(mock_get):
         'completed': False
     }]
    
+    todosnone = { }
+
     mock_get.return_value = Mock(ok=True)
     mock_get.return_value.json.return_value = todos
 
@@ -35,3 +37,9 @@ def test_request_response(mock_get):
     log.debug(response.json())
 
     assert_list_equal(response.json(), todos)
+
+    mock_get.return_value = Mock(ok=False)      
+    response = get_todos()
+    assert_is_none(response)
+    log.debug(response)
+
